@@ -1,17 +1,26 @@
-import React from "react";
-
-function ImageBox() {
+function ImageBox({
+  width,
+  className,
+  src,
+  alt,
+  children,
+}: {
+  width?: number;
+  className?: string;
+  src: string;
+  alt: string;
+  children?: React.ReactNode;
+}) {
   return (
     <figure>
       <img
-        width={200}
-        className="mx-auto"
-        src="/images/illustration-five-stars.webp"
-        alt="five stars"
+        width={width}
+        className={className}
+        src={`/images/${src}`}
+        alt={alt}
       />
-      <figcaption className="text-yellow-100">
-        Over 4,000 5-star reviews
-      </figcaption>
+
+      {children}
     </figure>
   );
 }

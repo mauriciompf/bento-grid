@@ -8,7 +8,7 @@ interface TitleBoxProps extends ComponentPropsWithoutRef<"h2"> {
 
 function TitleBox({ className, children, ...props }: TitleBoxProps) {
   return (
-    <h2 className={clsx("leading-10 font-medium", { className })} {...props}>
+    <h2 className={clsx(className, "leading-10 font-medium")} {...props}>
       {children}
     </h2>
   );
