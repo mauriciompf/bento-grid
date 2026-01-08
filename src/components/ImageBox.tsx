@@ -1,3 +1,5 @@
+import { clsx } from "clsx";
+
 function ImageBox({
   width,
   className,
@@ -15,7 +17,7 @@ function ImageBox({
     <figure>
       <img
         width={width}
-        className={className}
+        className={clsx(className, "mx-auto")}
         src={`/images/${src}`}
         alt={alt}
       />
