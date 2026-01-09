@@ -5,79 +5,87 @@ import TitleBox from "./TitleBox";
 function Home() {
   const dataBoxes = [
     {
+      id: 1,
       name: "five stars",
       className: "bg-purple-500 py-8",
       isImageFirst: false,
-      title: "Social Media x10 Faster with AI",
-      highlight: { text: "x10", color: "text-yellow-500" },
-      emText: "Faster",
+      title: {
+        title: "Social Media x10 Faster with AI",
+        className: "text-5xl w-[90%] mx-auto",
+        highlight: { text: "x10", color: "text-yellow-500" },
+        emText: "Faster",
+      },
       image: {
         src: "illustration-five-stars.webp",
+        className: "mx-auto",
         width: 200,
         caption: "Over 4,000 5-star reviews",
+        classNameCaption: "text-yellow-100",
       },
     },
     {
+      id: 2,
       name: "multiple platforms",
       className: "bg-white py-6",
       isImageFirst: true,
-      title: "Manage multiple accounts and platforms.",
-      highlight: null,
-      emText: null,
+      title: {
+        title: "Manage multiple accounts and platforms.",
+        className: "",
+        highlight: null,
+        emText: null,
+      },
       image: {
         src: "illustration-multiple-platforms.webp",
+        className: "mx-auto",
         width: 300,
         caption: null,
+        classNameCaption: null,
       },
     },
   ];
 
   function Boxes() {
-    return dataBoxes.map((box) => (
-      <Box key={box.name} className={box.className}>
-        {box.isImageFirst ? (
-          <>
-            {box.image.caption ? (
-              <ImageBox
-                src={box.image.src}
-                alt={box.name}
-                width={box.image.width}
-              >
-                {box.image.caption}
-              </ImageBox>
-            ) : (
-              <ImageBox
-                src={box.image.src}
-                alt={box.name}
-                width={box.image.width}
-              />
-            )}
+    const RenderImageBox = ({ box }: { box: any }) => {
+      const imageProps = {
+        src: box.image.src,
+        alt: box.name,
+        width: box.image.width,
+        className: box.image.className,
+      };
 
-            <TitleBox>{box.title}</TitleBox>
-          </>
-        ) : (
-          <>
-            <TitleBox>{box.title}</TitleBox>
+      return box.image.caption ? (
+        <ImageBox {...imageProps}>{box.image.caption}</ImageBox>
+      ) : (
+        <ImageBox {...imageProps} />
+      );
+    };
 
-            {box.image.caption ? (
-              <ImageBox
-                src={box.image.src}
-                alt={box.name}
-                width={box.image.width}
-              >
-                {box.image.caption}
-              </ImageBox>
-            ) : (
-              <ImageBox
-                src={box.image.src}
-                alt={box.name}
-                width={box.image.width}
-              />
-            )}
-          </>
-        )}
-      </Box>
-    ));
+    const RenderBoxes = ({ box }: { box: any }) => {
+      console.log(box.id);
+      return (
+        <Box key={box.name} className={box.className}>
+          {box.isImageFirst ? (
+            <>
+              <RenderImageBox box={box} />
+
+              <TitleBox className={box.title.className}>
+                {box.title.title}
+              </TitleBox>
+            </>
+          ) : (
+            <>
+              <TitleBox className={box.title.className}>
+                {box.title.title}
+              </TitleBox>
+
+              <RenderImageBox box={box} />
+            </>
+          )}
+        </Box>
+      );
+    };
+
+    return dataBoxes.map((box) => <RenderBoxes box={box} />);
   }
 
   return (
